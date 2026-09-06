@@ -1,0 +1,2591 @@
+{
+  "name": "Ecosistema IA - Screening de Candidatos",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Postulate a nuestras busquedas",
+        "formDescription": "Completa tus datos y adjunta tu CV en PDF.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nombre y Apellido",
+              "fieldName": "Nombre_y_Apellido",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "fieldName": "Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Telefono (con codigo de pais)",
+              "fieldName": "Telefono",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Puesto al que aplicas",
+              "fieldType": "dropdown",
+              "fieldName": "Puesto",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Product Manager"
+                  },
+                  {
+                    "option": "Tech Lead"
+                  },
+                  {
+                    "option": "Project Manager"
+                  },
+                  {
+                    "option": "IA Engennier"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Adjunta tu CV (PDF)",
+              "fieldType": "file",
+              "fieldName": "CV",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "respondWithOptions": {
+            "values": {}
+          },
+          "customCss": "/* --- ROOT VARIABLES (Dark Professional Theme) --- */\n:root {\n\t/* --- FONT MAPPING --- */\n\t--font-family: 'Inter', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 14px;\n\t--font-size-label: 14px;\n\t--font-size-input: 14px;\n\t--font-size-header: 24px;\n\t--line-height-base: 1.6;\n\n\t/* --- COLOR MAPPING (Dark Slate/Purple Theme) --- */\n\t--color-page-bg: #111827; /* Dark Slate */\n\t--color-card-bg-glass: rgba(29, 39, 53, 0.65); /* Darker, less transparent glass */\n\t--color-card-border-glass: rgba(255, 255, 255, 0.1); /* Subtle light border */\n\t--color-input-bg: #1F2937; /* Slightly lighter than page bg */\n\t--color-header: #F9FAFB; /* Off-white for high contrast */\n\t--color-label: #9CA3AF; /* Light gray for secondary text */\n\t--color-input-text: #F9FAFB;\n\t--color-input-border: #4B5563; /* Mid-gray border */\n\t--color-focus-border: #8B5CF6; /* Vibrant Purple */\n\t--color-link: #8B5CF6;\n\t--color-submit-btn-bg: #8B5CF6;\n\t--color-submit-btn-hover-bg: #7C3AED; /* Darker Purple */\n\t--color-submit-btn-text: #FFFFFF;\n\t--color-error: #F43F5E; /* Vibrant Rose for errors */\n\t--color-required: #F43F5E;\n\n\t/* --- DIMENSIONS & SPACING --- */\n\t--container-width: 550px;\n\t--border-radius-card: 16px;\n\t--border-radius-input: 8px;\n\t--padding-card: 32px;\n\t--padding-form-input: 14px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 20px;\n\n\t/* --- EFFECTS & ANIMATIONS --- */\n\t--box-shadow-card: 0 16px 50px rgba(0, 0, 0, 0.3); /* Deeper shadow for dark mode */\n\t--transition-speed: 0.25s;\n\t--animation-speed-fast: 0.2s;\n\t--animation-speed-normal: 0.4s;\n}\n\n/* === KEYFRAME ANIMATIONS === */\n@keyframes fadeInSlideUp {\n    from {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n    to {\n        opacity: 1;\n        transform: translateY(0);\n    }\n}\n\n@keyframes backgroundPan {\n\t0% { background-position: 0% 50%; }\n\t50% { background-position: 100% 50%; }\n\t100% { background-position: 0% 50%; }\n}\n\n/* === GLOBAL LAYOUT & STYLES === */\nbody {\n    /* Dynamic animated aurora gradient background */\n    background-color: var(--color-page-bg);\n    background-image:\n        radial-gradient(at 20% 100%, hsla(278, 60%, 45%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 80% 0%, hsla(215, 60%, 40%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 50% 50%, hsla(259, 70%, 55%, 0.1) 0px, transparent 50%);\n    background-size: 200% 200%;\n    animation: backgroundPan 15s ease-in-out infinite;\n\n    line-height: var(--line-height-base);\n    font-size: var(--font-size-body);\n    color: var(--color-label); /* Set default text color for body */\n\n    /* Flexbox properties for true centering */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 100vh;\n    margin: 0;\n    overflow-x: hidden; /* Prevent horizontal scroll from large gradients */\n}\n\n.form-container {\n    padding: 2rem 1rem;\n}\n\n/* === THE GLASSMORPHISM CARD === */\n.card {\n    background: var(--color-card-bg-glass);\n    backdrop-filter: blur(16px) saturate(150%);\n    -webkit-backdrop-filter: blur(16px) saturate(150%);\n    border-radius: var(--border-radius-card);\n    border: 1px solid var(--color-card-border-glass);\n    box-shadow: var(--box-shadow-card);\n    transition: box-shadow var(--animation-speed-normal) ease;\n\n    /* Card Load-in Animation */\n    animation: fadeInSlideUp 0.6s ease-out forwards;\n}\n.card:hover {\n    box-shadow: 0 0 50px rgba(139, 92, 246, 0.15); /* Subtle purple glow on hover */\n}\n\n/* === FORM ELEMENT STYLING === */\n.form-input, form select {\n    border-radius: var(--border-radius-input);\n    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    color: var(--color-input-text);\n    padding: var(--padding-form-input);\n    font-family: var(--font-family);\n    font-size: var(--font-size-input);\n    width: 100%;\n    box-sizing: border-box;\n}\n.form-input::placeholder {\n    color: var(--color-label);\n    opacity: 0.7;\n}\n.form-input:focus {\n    /* Glow effect on focus */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);\n    border-color: var(--color-focus-border);\n    outline: none; /* Remove default outline */\n}\n\ntextarea.form-input {\n    min-height: 150px;\n    resize: vertical;\n}\n\n/* === DROPDOWN / SELECT STYLING ===\n   El <select> nativo no heredaba estilo propio: por eso aparecía\n   blanco, desalineado, con el check pisando el texto.\n   Se quita la apariencia nativa y se dibuja un arrow custom en SVG. */\nselect.form-input {\n    appearance: none;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n\n    /* Flecha custom (SVG en gris claro, coincide con --color-label) */\n    background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='5 8 10 13 15 8'/%3e%3c/svg%3e\");\n    background-repeat: no-repeat;\n    background-position: right 14px center;\n    background-size: 16px;\n\n    /* Espacio a la derecha para que el texto no choque con la flecha */\n    padding-right: 40px;\n\n    cursor: pointer;\n}\n\n/* Estado focus: la flecha cambia a violeta para reforzar el highlight */\nselect.form-input:focus {\n    background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%238B5CF6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='5 8 10 13 15 8'/%3e%3c/svg%3e\");\n}\n\n/* Estilos para las <option> dentro del dropdown desplegado.\n   El soporte de los navegadores es limitado (no se puede tocar hover\n   individual de cada option en todos los browsers), pero esto asegura\n   fondo y texto oscuros en Chrome/Edge/Firefox en vez del blanco nativo. */\nselect.form-input option {\n    background-color: var(--color-input-bg);\n    color: var(--color-input-text);\n    padding: var(--padding-form-input);\n}\n\nselect.form-input option:checked,\nselect.form-input option:hover {\n    background-color: var(--color-focus-border);\n    color: var(--color-submit-btn-text);\n}\n\n/* Placeholder / opción deshabilitada (\"Select an option...\") */\nselect.form-input option[disabled],\nselect.form-input option[value=\"\"] {\n    color: var(--color-label);\n}\n\n/* Submit Button */\nbutton.submit-btn {\n    transition: all var(--transition-speed) ease-in-out;\n    font-family: var(--font-family);\n    font-weight: var(--font-weight-bold);\n    color: var(--color-submit-btn-text);\n    background-color: var(--color-submit-btn-bg);\n    border-radius: var(--border-radius-input);\n    border: none;\n    cursor: pointer;\n}\nbutton.submit-btn:hover {\n    background-color: var(--color-submit-btn-hover-bg);\n    /* Add a lift and glow effect on hover */\n    transform: translateY(-3px);\n    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);\n}\n\n/* === MODERN CHECKBOX STYLING === */\nlabel.multiselect-label {\n    display: flex;\n    align-items: center;\n    cursor: pointer;\n    position: relative;\n    padding: 8px 0;\n}\nlabel.multiselect-label span {\n    padding-left: 12px;\n    color: var(--color-label);\n    transition: color var(--transition-speed) ease;\n}\nlabel.multiselect-label:hover span {\n    color: var(--color-input-text); /* Lighten label text on hover */\n}\nlabel.multiselect-label input[type=\"checkbox\"] {\n    position: absolute;\n    opacity: 0;\n    cursor: pointer;\n    height: 0;\n    width: 0;\n}\nlabel.multiselect-label span::before {\n    content: '';\n    position: absolute;\n    left: 0;\n    top: 50%;\n    transform: translateY(-50%);\n    width: var(--checkbox-size);\n    height: var(--checkbox-size);\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    border-radius: 6px;\n    transition: all var(--animation-speed-fast) ease-in-out;\n}\nlabel.multiselect-label input[type=\"checkbox\"]:checked + span::before {\n    background-color: var(--color-focus-border);\n    border-color: var(--color-focus-border);\n    background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e\");\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Animation for the checkmark appearing */\n    transform: translateY(-50%) scale(1.05);\n}\nlabel.multiselect-label input[type=\"checkbox\"]:focus-visible + span::before {\n    /* Use a glow for focus instead of a harsh outline */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);\n}"
+        }
+      },
+      "id": "0b4e6b5b-16d7-4d2c-873c-4e62cf3026d4",
+      "name": "Formulario - Postulacion",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -48,
+        592
+      ],
+      "webhookId": "72fc8ac4-a146-44dc-a8bc-2f3992fbd410"
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "CV",
+        "name": "=CV_{{$('Formulario - Postulacion').item.json.Nombre_y_Apellido }}_{{ $now.toFormat(\"yyyyMMdd_HHmmss\") }}.pdf",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1fnSBn1wOpPx3rDU5N-pSAqHyu6tXzq4d",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1fnSBn1wOpPx3rDU5N-pSAqHyu6tXzq4d"
+        },
+        "options": {
+          "simplifyOutput": false
+        }
+      },
+      "id": "f8d61764-dce6-4d8b-a491-93d75d16afdb",
+      "name": "Drive - Subir CV",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1216,
+        400
+      ],
+      "retryOnFail": true,
+      "notesInFlow": false,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4Usgym7LB2ryREeo",
+          "name": "Google Drive account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "Drive_File_Id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "Drive_Link",
+              "value": "={{ $json.webViewLink }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "34de246a-abe4-4da3-813a-de4e3fda6358",
+      "name": "Normalizar Datos de Drive",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1440,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "fc11abea-c988-4a4e-965f-c207f5b45ef7",
+      "name": "Combinar Drive y Texto CV",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1744,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "CV",
+        "options": {
+          "joinPages": true
+        }
+      },
+      "id": "d5e13ec4-fb54-41ea-852c-4470e74f4a49",
+      "name": "Extraer Texto del CV",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        624
+      ],
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b1",
+              "name": "CV_Texto",
+              "value": "={{ $json.text ?? $json.data ?? \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "697c10e1-61c5-437f-9a52-70bebc8e69b6",
+      "name": "Normalizar Texto del CV",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1456,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "filterByFormula": "={{ 'AND({Email}=\"' + $json.Email + '\",{Position}=\"' + $json.Puesto + '\")' }}",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "id": "1aef9ec9-6043-43cb-bc0f-7e3d53581560",
+      "name": "Airtable - Buscar Duplicado",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -32
+      ],
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "executeOnce": false,
+      "notesInFlow": false,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1",
+              "name": "Duplicado",
+              "value": "={{ $json.id ? true : false }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "506aaab0-3875-412e-8dbd-db0c4c99fdc4",
+      "name": "Normalizar Chequeo Duplicado",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        416,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.Duplicado }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              },
+              "rightValue": true
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "25971626-0706-4440-8a8e-496d6369f081",
+      "name": "IF - Es Duplicado",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        656,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Formulario - Postulacion').item.json.Email }}",
+        "subject": "=Ya recibimos tu postulacion",
+        "emailType": "text",
+        "message": "=Hola {{ $(\"Formulario - Postulacion\").item.json.Nombre_y_Apellido }}, ya tenemos registrada tu postulacion para el puesto de {{ $(\"Formulario - Postulacion\").item.json.Puesto }}. Si necesitas actualizar algun dato, por favor escribinos directamente a RRHH.",
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "id": "646a2444-4ca0-4461-80fd-f528def2a3c1",
+      "name": "Gmail - Informar Duplicado al Candidato",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1216,
+        112
+      ],
+      "webhookId": "c071af8c-5d5f-495d-8eaa-35bf9679e5b3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EndMjIEcAuAwuTDm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const cvTexto = $json.CV_Texto || '';\nlet cvAnonimizado = cvTexto;\ncvAnonimizado = cvAnonimizado.replace(/\\b\\d{2}[.,]?\\d{3}[.,]?\\d{3}\\b/g, '[DNI OCULTO]');\ncvAnonimizado = cvAnonimizado.replace(/\\b(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[0-2])[\\/\\-](19|20)\\d{2}\\b/g, '[FECHA OCULTA]');\ncvAnonimizado = cvAnonimizado.replace(/\\b(19|20)\\d{2}\\b(?=.{0,15}(anios|años|edad))/gi, '[EDAD OCULTA]');\ncvAnonimizado = cvAnonimizado.replace(/\\b(soltero|soltera|casado|casada|divorciado|divorciada)\\b/gi, '[ESTADO CIVIL OCULTO]');\nconst nombre = $('Formulario - Postulacion').item.json.Nombre_y_Apellido;\nconst emailCandidato = $('Formulario - Postulacion').item.json.Email;\nconst telefono = $('Formulario - Postulacion').item.json.Telefono;\nconst puesto = $('Formulario - Postulacion').item.json.Puesto;\nreturn { json: { Name: nombre, Email: emailCandidato, Phone: telefono, Position: puesto, Drive_Link: $json.Drive_Link, CV_Anonymized: cvAnonimizado } };"
+      },
+      "id": "c2e8e2bf-c7c1-44c4-b851-e2bf579183c3",
+      "name": "Anonimizar CV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "CV_Anonymized": "={{ $json.CV_Anonymized }}",
+            "Drive_Link": "={{ $json.Drive_Link }}",
+            "Email": "={{ $json.Email }}",
+            "Name": "={{ $json.Name }}",
+            "Phone": "={{ $json.Phone }}",
+            "Position": "={{ $json.Position }}",
+            "Status": "Pending Evaluation",
+            "Score": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Drive_Link",
+              "displayName": "Drive_Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "CV_Anonymized",
+              "displayName": "CV_Anonymized",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending Evaluation",
+                  "value": "Pending Evaluation"
+                },
+                {
+                  "name": "Evaluated",
+                  "value": "Evaluated"
+                },
+                {
+                  "name": "Pending Approval",
+                  "value": "Pending Approval"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Rejected by HR",
+                  "value": "Rejected by HR"
+                },
+                {
+                  "name": "Notified",
+                  "value": "Notified"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "3d8d5249-c3f8-4203-8c3c-6f6cff55798e",
+      "name": "Airtable - Crear Candidato",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2160,
+        464
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl5hlBvKN0Zvmy14",
+          "mode": "list",
+          "cachedResultName": "Job_Profiles",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tbl5hlBvKN0Zvmy14"
+        },
+        "filterByFormula": "={{ '{Position}=\"' + $('Anonimizar CV').item.json.Position + '\"' }}",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "id": "56687bc4-a3b8-495b-aa32-c89dc2b87cad",
+      "name": "Airtable - Buscar Perfil Puesto",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2400,
+        448
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Job description del puesto ({{ $json.fields.Position }}):\n{{ $json.fields.Description }}\n\nCV anonimizado del candidato:\n{{ $('Anonimizar CV').item.json.CV_Anonymized }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "Sos un evaluador técnico de RRHH especializado en screening inicial de candidatos. Tu tarea es comparar el CV de un candidato contra la job description de un puesto y devolver un score objetivo y un análisis breve.\n\nCRITERIOS DE EVALUACION (en este orden de importancia):\n1. Experiencia relevante: años y tipo de experiencia en tareas/tecnologias que pide la job description.\n2. Habilidades tecnicas o de dominio: coincidencia entre skills mencionados en el CV y los requisitos del puesto.\n3. Formacion: solo cuenta si la job description la pide explicitamente como requisito.\n4. Trayectoria: progresion logica, consistencia, sin penalizar gaps de tiempo salvo que la job description lo exija.\n\nESCALA DE SCORE (0 a 10, un decimal):\n- 0-2: Sin relacion con el puesto, o CV vacio/no legible.\n- 3-4: Relacion tangencial, faltan la mayoria de los requisitos clave.\n- 5-6: Cumple parcialmente, cubre lo basico pero con brechas relevantes en experiencia o skills.\n- 7-8: Buen fit, cumple la mayoria de los requisitos clave del puesto.\n- 9-10: Fit excelente, supera los requisitos, experiencia directamente aplicable.\n\nREGLAS IMPORTANTES:\n- Evaluá EXCLUSIVAMENTE en base a la informacion del CV y la job description que se te proveen. No asumas ni inventes datos que no esten explicitos.\n- El CV puede tener partes ocultas por privacidad (ej: \"[DNI OCULTO]\", \"[EDAD OCULTA]\", \"[ESTADO CIVIL OCULTO]\"). Ignoralas por completo, no las menciones ni las uses para evaluar. Nunca infieras edad, genero, estado civil, nacionalidad o cualquier atributo personal a partir de nombres, fechas o cualquier otro dato indirecto.\n- Si la job description esta vacia o es demasiado ambigua para comparar, asigná score 0 y explicá en el analisis que falta informacion para evaluar - no inventes criterios.\n- Si el CV esta vacio, muy corto, o no contiene informacion verificable de experiencia/skills, asigná un score bajo (0-2) y decilo explicitamente en el analisis.\n- No premies un CV mas largo o mejor redactado si el contenido no matchea con el puesto.\n- Se especifico: el analisis debe citar 1-2 fortalezas concretas y 1-2 riesgos o brechas concretas, basados en hechos del CV, no generalidades tipo \"buen candidato\".\n\nADEMAS: Tenes disponible una tool para consultar si el candidato ya se postulo antes a otros puestos en este proceso de seleccion. Usala antes de finalizar tu evaluacion. Si encontras postulaciones previas, mencionalo brevemente en el analisis (por ejemplo, \"candidato con postulaciones previas a otro puesto\"), sin que eso reemplace tu evaluacion tecnica principal.\n\nFORMATO DE SALIDA:\nDevolve unicamente el score y el analisis segun el schema estructurado provisto. El analisis debe tener maximo 4 oraciones."
+        }
+      },
+      "id": "4962a2a2-a870-44c8-b76f-78ba531de849",
+      "name": "IA - Evaluar Candidato",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2672,
+        464
+      ],
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "60fe6023-6a40-4e91-bcad-afe469fc9d55",
+      "name": "OpenAI Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2672,
+        816
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "Eidw3ueVXWeA7chL",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{ \"score\": 8, \"analisis\": \"Resumen breve de fortalezas y riesgos del candidato frente al puesto.\" }"
+      },
+      "id": "37da7eba-33a6-4444-bb89-eff5b38cfe9c",
+      "name": "Parser - Score Candidato",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2816,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Analysis": "={{ $json.Analysis }}",
+            "Score": "={{ $json.Score }}",
+            "Status": "={{ $json.Status }}",
+            "id": "={{ $('Airtable - Crear Candidato').item.json.id }}",
+            "Job_Profile": "={{ [$('Airtable - Buscar Perfil Puesto').item.json.id] }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Drive_Link",
+              "displayName": "Drive_Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CV_Anonymized",
+              "displayName": "CV_Anonymized",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending Evaluation",
+                  "value": "Pending Evaluation"
+                },
+                {
+                  "name": "Evaluated",
+                  "value": "Evaluated"
+                },
+                {
+                  "name": "Pending Approval",
+                  "value": "Pending Approval"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Rejected by HR",
+                  "value": "Rejected by HR"
+                },
+                {
+                  "name": "Notified",
+                  "value": "Notified"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Job_Profile",
+              "displayName": "Job_Profile",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "multipleRecordLinks",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "7e79c427-96da-4886-ac07-c3a8f4b02c54",
+      "name": "Airtable - Guardar Resultado",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        3264,
+        496
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.fields.Status }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "Pending Approval"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "88f53fe1-ab55-4de2-b073-e5feac61e235",
+      "name": "IF - Pasa a Aprobacion RRHH",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3520,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "={{ $('Airtable - Buscar Perfil Puesto').item.json.fields.HR_Email }}",
+        "subject": "={{ 'Aprobacion requerida - ' + $('Anonimizar CV').item.json.Name + ' - ' + $('Anonimizar CV').item.json.Position }}",
+        "message": "={{ 'Candidato: ' + $('Anonimizar CV').item.json.Name + '\\nPuesto: ' + $('Anonimizar CV').item.json.Position + '\\nScore: ' + ($('IA - Evaluar Candidato').item.json.output?.score ?? $('IA - Evaluar Candidato').item.json.score) + '\\nAnalisis: ' + ($('IA - Evaluar Candidato').item.json.output?.analisis ?? $('IA - Evaluar Candidato').item.json.analisis) + '\\nCV: ' + $('Anonimizar CV').item.json.Drive_Link }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "Aprobar",
+            "disapproveLabel": "Rechazar"
+          }
+        },
+        "options": {
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 48
+            }
+          }
+        }
+      },
+      "id": "5393eaa6-6a51-4b14-a962-747996c436bd",
+      "name": "Gmail - Solicitar Aprobacion RRHH",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        3808,
+        320
+      ],
+      "webhookId": "79d782d0-20f6-4fc3-a0ca-4d3f9744628b",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EndMjIEcAuAwuTDm",
+          "name": "Gmail account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.data.approved }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              },
+              "rightValue": true
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4126a3d4-245e-4fd6-8362-dc9e0d7f0cd2",
+      "name": "IF - RRHH Aprobo",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        3984,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Approved",
+            "id": "={{ $('Airtable - Crear Candidato').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Drive_Link",
+              "displayName": "Drive_Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CV_Anonymized",
+              "displayName": "CV_Anonymized",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending Evaluation",
+                  "value": "Pending Evaluation"
+                },
+                {
+                  "name": "Evaluated",
+                  "value": "Evaluated"
+                },
+                {
+                  "name": "Pending Approval",
+                  "value": "Pending Approval"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Rejected by HR",
+                  "value": "Rejected by HR"
+                },
+                {
+                  "name": "Notified",
+                  "value": "Notified"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "07e6e7fe-27c9-4482-a84c-e77bc26d2ab0",
+      "name": "Airtable - Marcar Aprobado",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        4224,
+        224
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1300376693159194",
+        "recipientPhoneNumber": "={{ (() => { const raw = ($('Formulario - Postulacion').item.json.Telefono || '').toString().trim(); const digits = raw.replace(/[^\\d+]/g, ''); return digits.startsWith('+') ? digits : '+54' + digits; })() }}",
+        "textBody": "=¡Hola, {{ $('Formulario - Postulacion').item.json.Nombre_y_Apellido }}! Queríamos contarte que fuiste seleccionado/a para avanzar con una entrevista presencial para la posición de {{ $('Formulario - Postulacion').item.json.Puesto }}. ¿Podrías asistir el próximo miércoles, en algún horario entre las 9:00 y las 13:00? Por favor, confirmános tu disponibilidad. ¡Muchas gracias!",
+        "additionalFields": {}
+      },
+      "id": "321b9798-bbe1-4adb-b86e-a62c8f8b6988",
+      "name": "WhatsApp - Coordinar Entrevista",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        4560,
+        208
+      ],
+      "webhookId": "d57a3510-1570-486a-9116-ae96756e7bbe",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "credentials": {
+        "whatsAppApi": {
+          "id": "H6heSo2stQIT1KYB",
+          "name": "WhatsApp account 2"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Notified",
+            "id": "={{ $('Airtable - Crear Candidato').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Drive_Link",
+              "displayName": "Drive_Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CV_Anonymized",
+              "displayName": "CV_Anonymized",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending Evaluation",
+                  "value": "Pending Evaluation"
+                },
+                {
+                  "name": "Evaluated",
+                  "value": "Evaluated"
+                },
+                {
+                  "name": "Pending Approval",
+                  "value": "Pending Approval"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Rejected by HR",
+                  "value": "Rejected by HR"
+                },
+                {
+                  "name": "Notified",
+                  "value": "Notified"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "b1924894-9fe8-4bf6-87c9-54a8ad08f0e3",
+      "name": "Airtable - Marcar Notificado",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        4832,
+        208
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFM67gDzfTARpBD",
+          "mode": "list",
+          "cachedResultName": "Candidates",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblFM67gDzfTARpBD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Rejected by HR",
+            "id": "={{ $('Airtable - Crear Candidato').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Drive_Link",
+              "displayName": "Drive_Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "CV_Anonymized",
+              "displayName": "CV_Anonymized",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Analysis",
+              "displayName": "Analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending Evaluation",
+                  "value": "Pending Evaluation"
+                },
+                {
+                  "name": "Evaluated",
+                  "value": "Evaluated"
+                },
+                {
+                  "name": "Pending Approval",
+                  "value": "Pending Approval"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Rejected by HR",
+                  "value": "Rejected by HR"
+                },
+                {
+                  "name": "Notified",
+                  "value": "Notified"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "603f770d-0325-42d6-8acf-248f357bb6ef",
+      "name": "Airtable - Marcar Rechazado por RRHH",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        4240,
+        400
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Airtable - Buscar Perfil Puesto').item.json.fields.HR_Email }}",
+        "subject": "={{ 'Candidato auto-rechazado - ' + $('Anonimizar CV').item.json.Name + ' - ' + $('Anonimizar CV').item.json.Position }}",
+        "emailType": "text",
+        "message": "={{ 'El candidato ' + $('Anonimizar CV').item.json.Name + ' fue rechazado automaticamente por score bajo el umbral.\\n\\nAnalisis: ' + ($('IA - Evaluar Candidato').item.json.output?.analisis ?? $('IA - Evaluar Candidato').item.json.analisis) }}",
+        "options": {}
+      },
+      "id": "7facba95-1437-453e-a90a-e59b1742d0ce",
+      "name": "Gmail - Informar Rechazo a RRHH",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        3808,
+        544
+      ],
+      "webhookId": "03cb03d0-316c-482c-9334-a038e74530f4",
+      "retryOnFail": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EndMjIEcAuAwuTDm",
+          "name": "Gmail account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Chequeo de duplicados\nSe busca por Email + Puesto antes de crear el registro. Si ya existe, se avisa al candidato por mail y el flujo termina ahi.",
+        "height": 192,
+        "color": 4
+      },
+      "id": "f6c1cbbd-11b3-41fc-a0d5-e92e96705505",
+      "name": "Sticky Note b4d711f4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        544,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Minimizacion de datos\nAntes de guardar o enviar el CV a la IA se ocultan DNI, fechas de nacimiento, edad y estado civil. Nombre, email y telefono se conservan porque son necesarios para contactar al candidato.",
+        "height": 240,
+        "color": 5
+      },
+      "id": "c9bffb19-8884-4068-a182-eddf0d905cb0",
+      "name": "Sticky Note 87419401",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Human-in-the-loop\nGmail \"Send and Wait for Approval\" pausa el flujo nativamente hasta que RRHH aprueba o rechaza. El umbral de score (Umbral) es dinamico, se lee de la tabla Perfiles_Busqueda por puesto, no esta hardcodeado.",
+        "height": 288,
+        "color": 6
+      },
+      "id": "e7a570a5-c1f9-42b6-88c1-449bc35073d9",
+      "name": "Sticky Note a64bfdaf",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3712,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "d574866c-a34b-41d9-b7ff-e4c266451ac5",
+      "name": "Merge - Puerta No Duplicado",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        880,
+        784
+      ],
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d1",
+              "name": "Score",
+              "type": "number",
+              "value": "={{ $('IA - Evaluar Candidato').item.json.output?.score ?? $('IA - Evaluar Candidato').item.json.score }}"
+            },
+            {
+              "id": "d2",
+              "name": "Analysis",
+              "type": "string",
+              "value": "={{ $('IA - Evaluar Candidato').item.json.output?.analisis ?? $('IA - Evaluar Candidato').item.json.analisis }}"
+            },
+            {
+              "id": "d3",
+              "name": "Status",
+              "type": "string",
+              "value": "={{ (Number($('IA - Evaluar Candidato').item.json.output?.score ?? $('IA - Evaluar Candidato').item.json.score) > Number($('Airtable - Buscar Perfil Puesto').item.json.fields.Threshold)) ? 'Pending Approval' : 'Rejected' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a8feb74b-3994-44ba-8932-721965de42bf",
+      "name": "Determinar Estado",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        3072,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Formulario - Postulacion').item.json.Email }}",
+        "subject": "=Recibimos tu postulacion",
+        "emailType": "text",
+        "message": "=Hola {{ $('Formulario - Postulacion').item.json.Nombre_y_Apellido }}, ya recibimos tu CV para el puesto de {{ $('Formulario - Postulacion').item.json.Puesto }}. Nuestro equipo lo va a estar evaluando, y si tu perfil avanza en el proceso nos vamos a contactar con vos por WhatsApp para coordinar los proximos pasos. Gracias por tu interes!",
+        "options": {}
+      },
+      "id": "6b544ba2-e2c1-445b-a4fb-38ede8c6ff17",
+      "name": "Gmail - Confirmar Recepcion al Candidato",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2416,
+        688
+      ],
+      "webhookId": "7ca7ded8-bd62-45dc-bb25-b0a77638d0d0",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EndMjIEcAuAwuTDm",
+          "name": "Gmail account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appGaBexVnLIy4egO",
+          "mode": "list",
+          "cachedResultName": "Screening de Candidatos",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblpDgp8aU3mSpHFm",
+          "mode": "list",
+          "cachedResultName": "Errors",
+          "cachedResultUrl": "https://airtable.com/appGaBexVnLIy4egO/tblpDgp8aU3mSpHFm"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $now.toISO() }}",
+            "Detail": "={{ $json.output?.mensaje_error ?? ($json.error?.message ?? JSON.stringify($json)) }}",
+            "Type": "={{ $json.output?.nodo_origen ?? ($json.error?.node?.name ?? 'Error de ejecucion') }}",
+            "Candidate_Id": "={{ (() => { try { return $('Airtable - Crear Candidato').item.json.id } catch(e) { return '' } })() }}",
+            "Candidate": "={{ (() => { try { return [$('Airtable - Crear Candidato').item.json.id] } catch(e) { return [] } })() }}",
+            "Severity": "={{ $json.output?.severidad ?? '' }}",
+            "Action_Taken": "={{ $json.output?.accion ?? '' }}",
+            "Triage_Summary": "={{ $json.output?.resumen ?? '' }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Type",
+              "displayName": "Type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Detail",
+              "displayName": "Detail",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Candidate_Id",
+              "displayName": "Candidate_Id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Candidate",
+              "displayName": "Candidate",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "multipleRecordLinks",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Severity",
+              "displayName": "Severity",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "singleSelect",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Action_Taken",
+              "displayName": "Action_Taken",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "singleSelect",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Triage_Summary",
+              "displayName": "Triage_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "6899b6cd-1177-4541-8ad7-77378bc94fc6",
+      "name": "Airtable - Log Error",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        4704,
+        -896
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## WhatsApp con datos de demo\nphoneNumberId y template son valores de prueba (no reales) hasta configurar WhatsApp Business API + una plantilla aprobada en Meta. El numero del candidato se normaliza a formato internacional (+) antes de enviar.",
+        "height": 220,
+        "width": 320
+      },
+      "id": "a949b7ee-0228-4e9a-9ed2-9a3fbb35a7da",
+      "name": "Sticky Note - WhatsApp Demo",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4560,
+        -32
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tblFM67gDzfTARpBD"
+        },
+        "filterByFormula": "={{ 'AND({Email}=\"' + $('Anonimizar CV').item.json.Email + '\",{Position}!=\"' + $('Anonimizar CV').item.json.Position + '\")' }}",
+        "returnAll": false,
+        "limit": 5,
+        "options": {}
+      },
+      "id": "9ead5861-930d-49ef-81a4-7324b7367a28",
+      "name": "Airtable Tool - Historial Candidato",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.2,
+      "position": [
+        2768,
+        992
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-nano"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "e62d9c88-d886-430f-97c9-224013d25d81",
+      "name": "OpenAI Model - Triage",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        4208,
+        -672
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "Eidw3ueVXWeA7chL",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "appGaBexVnLIy4egO"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "id",
+          "value": "tblpDgp8aU3mSpHFm"
+        },
+        "filterByFormula": "={{ '{Type}=\"' + ($json.error?.node?.name ?? '') + '\"' }}",
+        "returnAll": false,
+        "limit": 10,
+        "options": {},
+        "sort": {
+          "property": [
+            {
+              "field": "Date",
+              "direction": "desc"
+            }
+          ]
+        }
+      },
+      "id": "3320043d-b010-4a99-8452-4cfb6dc76ece",
+      "name": "Airtable Tool - Errores Similares",
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.2,
+      "position": [
+        4416,
+        -720
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "GsK6hRTBBhIPNFiF",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{ \"nodo_origen\": \"WhatsApp - Coordinar Entrevista\", \"mensaje_error\": \"Authorization failed - please check your credentials\", \"severidad\": \"alta\", \"accion\": \"escalar\", \"resumen\": \"WhatsApp lleva 3 fallos esta semana por credenciales invalidas, requiere atencion tecnica.\" }"
+      },
+      "id": "0bd956e4-85a9-441f-9b70-25e09ffbc2c4",
+      "name": "Parser - Triage",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        4576,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Nodo que fallo: {{ $json.error?.node?.name ?? 'Desconocido' }}\nMensaje de error: {{ $json.error?.message ?? JSON.stringify($json) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "Sos un agente de triage de errores para un pipeline de automatizacion de RRHH en n8n. Recibis el nombre del nodo que fallo y el mensaje de error tal cual ocurrieron.\n\nTenes disponible una tool para consultar si hubo errores anteriores del mismo tipo de nodo - usala siempre antes de decidir, para saber si el error es recurrente.\n\nClasifica el error:\n- severidad: 'baja' si es un fallo aislado o esperable (ej. credenciales de demo/prueba, timeout puntual), 'alta' si es recurrente (3 o mas veces en el historial) o afecta un paso critico del proceso.\n- accion: 'escalar' solo si la severidad es alta, si no 'solo_registrar'.\n\nFORMATO DE SALIDA (usa el schema estructurado):\n- nodo_origen: copia EXACTAMENTE el nombre del nodo que recibiste, sin modificarlo.\n- mensaje_error: copia EXACTAMENTE el mensaje de error que recibiste, sin resumirlo ni modificarlo.\n- severidad, accion: segun los criterios de arriba.\n- resumen: una frase breve en lenguaje simple explicando que paso y que se hizo."
+        }
+      },
+      "id": "d0b30d73-cbf3-49f9-baaa-f4c61fccb14e",
+      "name": "IA - Triage de Error",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        4208,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.output.accion }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "escalar"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "49b069cf-65b9-4aec-aab3-9ecbc3636eec",
+      "name": "IF - Escalar Error",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        4944,
+        -896
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "ivaneloysantos@gmail.com",
+        "subject": "=[ALERTA] Error critico en Ecosistema IA - Screening de Candidatos",
+        "emailType": "text",
+        "message": "=Se detecto un error clasificado como critico por el agente de triage.\n\nNodo: {{ $json.output?.nodo_origen ?? '' }}\nResumen: {{ $json.output?.resumen ?? '' }}\n\nRevisar el log de errores en Airtable para mas detalle.",
+        "options": {}
+      },
+      "id": "f552cd39-135c-4811-960d-b35e2eeaa5f5",
+      "name": "Gmail - Alertar Error Critico",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        5200,
+        -912
+      ],
+      "webhookId": "2fa1150d-2132-4a31-a5c1-723ee38c5c28",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EndMjIEcAuAwuTDm",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Ya recibimos tu postulacion",
+        "completionMessage": "=¡Gracias {{ $(\"Formulario - Postulacion\").item.json.Nombre_y_Apellido }}! Ya recibimos tu CV para el puesto de {{ $(\"Formulario - Postulacion\").item.json.Puesto }}. Nuestro equipo lo va a estar evaluando, y si tu perfil avanza en el proceso nos vamos a contactar con vos por WhatsApp para coordinar los próximos pasos.",
+        "options": {
+          "customCss": "/* --- ROOT VARIABLES (Dark Professional Theme) --- */\n:root {\n\t/* --- FONT MAPPING --- */\n\t--font-family: 'Inter', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 14px;\n\t--font-size-label: 14px;\n\t--font-size-input: 14px;\n\t--font-size-header: 24px;\n\t--line-height-base: 1.6;\n\n\t/* --- COLOR MAPPING (Dark Slate/Purple Theme) --- */\n\t--color-page-bg: #111827; /* Dark Slate */\n\t--color-card-bg-glass: rgba(29, 39, 53, 0.65); /* Darker, less transparent glass */\n\t--color-card-border-glass: rgba(255, 255, 255, 0.1); /* Subtle light border */\n\t--color-input-bg: #1F2937; /* Slightly lighter than page bg */\n\t--color-header: #F9FAFB; /* Off-white for high contrast */\n\t--color-label: #9CA3AF; /* Light gray for secondary text */\n\t--color-input-text: #F9FAFB;\n\t--color-input-border: #4B5563; /* Mid-gray border */\n\t--color-focus-border: #8B5CF6; /* Vibrant Purple */\n\t--color-link: #8B5CF6;\n\t--color-submit-btn-bg: #8B5CF6;\n\t--color-submit-btn-hover-bg: #7C3AED; /* Darker Purple */\n\t--color-submit-btn-text: #FFFFFF;\n\t--color-error: #F43F5E; /* Vibrant Rose for errors */\n\t--color-required: #F43F5E;\n\n\t/* --- DIMENSIONS & SPACING --- */\n\t--container-width: 550px;\n\t--border-radius-card: 16px;\n\t--border-radius-input: 8px;\n\t--padding-card: 32px;\n\t--padding-form-input: 14px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 20px;\n\n\t/* --- EFFECTS & ANIMATIONS --- */\n\t--box-shadow-card: 0 16px 50px rgba(0, 0, 0, 0.3); /* Deeper shadow for dark mode */\n\t--transition-speed: 0.25s;\n\t--animation-speed-fast: 0.2s;\n\t--animation-speed-normal: 0.4s;\n}\n\n/* === KEYFRAME ANIMATIONS === */\n@keyframes fadeInSlideUp {\n    from {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n    to {\n        opacity: 1;\n        transform: translateY(0);\n    }\n}\n\n@keyframes backgroundPan {\n\t0% { background-position: 0% 50%; }\n\t50% { background-position: 100% 50%; }\n\t100% { background-position: 0% 50%; }\n}\n\n/* === GLOBAL LAYOUT & STYLES === */\nbody {\n    /* Dynamic animated aurora gradient background */\n    background-color: var(--color-page-bg);\n    background-image:\n        radial-gradient(at 20% 100%, hsla(278, 60%, 45%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 80% 0%, hsla(215, 60%, 40%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 50% 50%, hsla(259, 70%, 55%, 0.1) 0px, transparent 50%);\n    background-size: 200% 200%;\n    animation: backgroundPan 15s ease-in-out infinite;\n\n    line-height: var(--line-height-base);\n    font-size: var(--font-size-body);\n    color: var(--color-label); /* Set default text color for body */\n\n    /* Flexbox properties for true centering */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 100vh;\n    margin: 0;\n    overflow-x: hidden; /* Prevent horizontal scroll from large gradients */\n}\n\n.form-container {\n    padding: 2rem 1rem;\n}\n\n/* === THE GLASSMORPHISM CARD === */\n.card {\n    background: var(--color-card-bg-glass);\n    backdrop-filter: blur(16px) saturate(150%);\n    -webkit-backdrop-filter: blur(16px) saturate(150%);\n    border-radius: var(--border-radius-card);\n    border: 1px solid var(--color-card-border-glass);\n    box-shadow: var(--box-shadow-card);\n    transition: box-shadow var(--animation-speed-normal) ease;\n\n    /* Card Load-in Animation */\n    animation: fadeInSlideUp 0.6s ease-out forwards;\n}\n.card:hover {\n    box-shadow: 0 0 50px rgba(139, 92, 246, 0.15); /* Subtle purple glow on hover */\n}\n\n/* === FORM ELEMENT STYLING === */\n.form-input {\n    border-radius: var(--border-radius-input);\n    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    color: var(--color-input-text);\n}\n.form-input::placeholder {\n    color: var(--color-label);\n    opacity: 0.7;\n}\n.form-input:focus {\n    /* Glow effect on focus */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);\n    border-color: var(--color-focus-border);\n    outline: none; /* Remove default outline */\n}\n\ntextarea.form-input {\n    min-height: 150px;\n    resize: vertical;\n}\n\n/* Submit Button */\nbutton.submit-btn {\n    transition: all var(--transition-speed) ease-in-out;\n    font-family: var(--font-family);\n    font-weight: var(--font-weight-bold);\n    color: var(--color-submit-btn-text);\n    background-color: var(--color-submit-btn-bg);\n    border-radius: var(--border-radius-input);\n    border: none;\n    cursor: pointer;\n}\nbutton.submit-btn:hover {\n    background-color: var(--color-submit-btn-hover-bg);\n    /* Add a lift and glow effect on hover */\n    transform: translateY(-3px);\n    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);\n}\n\n/* === MODERN CHECKBOX STYLING === */\nlabel.multiselect-label {\n    display: flex;\n    align-items: center;\n    cursor: pointer;\n    position: relative;\n    padding: 8px 0;\n}\nlabel.multiselect-label span {\n    padding-left: 12px;\n    color: var(--color-label);\n    transition: color var(--transition-speed) ease;\n}\nlabel.multiselect-label:hover span {\n    color: var(--color-input-text); /* Lighten label text on hover */\n}\nlabel.multiselect-label input[type=\"checkbox\"] {\n    position: absolute;\n    opacity: 0;\n    cursor: pointer;\n    height: 0;\n    width: 0;\n}\nlabel.multiselect-label span::before {\n    content: '';\n    position: absolute;\n    left: 0;\n    top: 50%;\n    transform: translateY(-50%);\n    width: var(--checkbox-size);\n    height: var(--checkbox-size);\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    border-radius: 6px;\n    transition: all var(--animation-speed-fast) ease-in-out;\n}\nlabel.multiselect-label input[type=\"checkbox\"]:checked + span::before {\n    background-color: var(--color-focus-border);\n    border-color: var(--color-focus-border);\n    background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e\");\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Animation for the checkmark appearing */\n    transform: translateY(-50%) scale(1.05);\n}\nlabel.multiselect-label input[type=\"checkbox\"]:focus-visible + span::before {\n    /* Use a glow for focus instead of a harsh outline */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);\n}"
+        }
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        912,
+        336
+      ],
+      "id": "9ff637ad-c2c3-43d0-a685-7d992d671fe4",
+      "name": "Respuesta del formulario",
+      "webhookId": "ad7f5b4c-21e0-41e9-911d-892e0e2737dd"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Ya recibimos tu postulacion",
+        "completionMessage": "=Hola {{ $(\"Formulario - Postulacion\").item.json.Nombre_y_Apellido }}, ya tenemos registrada tu postulacion para el puesto de {{ $(\"Formulario - Postulacion\").item.json.Puesto }}. Si necesitas actualizar algun dato, por favor escribinos directamente a RRHH.",
+        "options": {
+          "customCss": "/* --- ROOT VARIABLES (Dark Professional Theme) --- */\n:root {\n\t/* --- FONT MAPPING --- */\n\t--font-family: 'Inter', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 14px;\n\t--font-size-label: 14px;\n\t--font-size-input: 14px;\n\t--font-size-header: 24px;\n\t--line-height-base: 1.6;\n\n\t/* --- COLOR MAPPING (Dark Slate/Purple Theme) --- */\n\t--color-page-bg: #111827; /* Dark Slate */\n\t--color-card-bg-glass: rgba(29, 39, 53, 0.65); /* Darker, less transparent glass */\n\t--color-card-border-glass: rgba(255, 255, 255, 0.1); /* Subtle light border */\n\t--color-input-bg: #1F2937; /* Slightly lighter than page bg */\n\t--color-header: #F9FAFB; /* Off-white for high contrast */\n\t--color-label: #9CA3AF; /* Light gray for secondary text */\n\t--color-input-text: #F9FAFB;\n\t--color-input-border: #4B5563; /* Mid-gray border */\n\t--color-focus-border: #8B5CF6; /* Vibrant Purple */\n\t--color-link: #8B5CF6;\n\t--color-submit-btn-bg: #8B5CF6;\n\t--color-submit-btn-hover-bg: #7C3AED; /* Darker Purple */\n\t--color-submit-btn-text: #FFFFFF;\n\t--color-error: #F43F5E; /* Vibrant Rose for errors */\n\t--color-required: #F43F5E;\n\n\t/* --- DIMENSIONS & SPACING --- */\n\t--container-width: 550px;\n\t--border-radius-card: 16px;\n\t--border-radius-input: 8px;\n\t--padding-card: 32px;\n\t--padding-form-input: 14px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 20px;\n\n\t/* --- EFFECTS & ANIMATIONS --- */\n\t--box-shadow-card: 0 16px 50px rgba(0, 0, 0, 0.3); /* Deeper shadow for dark mode */\n\t--transition-speed: 0.25s;\n\t--animation-speed-fast: 0.2s;\n\t--animation-speed-normal: 0.4s;\n}\n\n/* === KEYFRAME ANIMATIONS === */\n@keyframes fadeInSlideUp {\n    from {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n    to {\n        opacity: 1;\n        transform: translateY(0);\n    }\n}\n\n@keyframes backgroundPan {\n\t0% { background-position: 0% 50%; }\n\t50% { background-position: 100% 50%; }\n\t100% { background-position: 0% 50%; }\n}\n\n/* === GLOBAL LAYOUT & STYLES === */\nbody {\n    /* Dynamic animated aurora gradient background */\n    background-color: var(--color-page-bg);\n    background-image:\n        radial-gradient(at 20% 100%, hsla(278, 60%, 45%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 80% 0%, hsla(215, 60%, 40%, 0.2) 0px, transparent 50%),\n        radial-gradient(at 50% 50%, hsla(259, 70%, 55%, 0.1) 0px, transparent 50%);\n    background-size: 200% 200%;\n    animation: backgroundPan 15s ease-in-out infinite;\n\n    line-height: var(--line-height-base);\n    font-size: var(--font-size-body);\n    color: var(--color-label); /* Set default text color for body */\n\n    /* Flexbox properties for true centering */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 100vh;\n    margin: 0;\n    overflow-x: hidden; /* Prevent horizontal scroll from large gradients */\n}\n\n.form-container {\n    padding: 2rem 1rem;\n}\n\n/* === THE GLASSMORPHISM CARD === */\n.card {\n    background: var(--color-card-bg-glass);\n    backdrop-filter: blur(16px) saturate(150%);\n    -webkit-backdrop-filter: blur(16px) saturate(150%);\n    border-radius: var(--border-radius-card);\n    border: 1px solid var(--color-card-border-glass);\n    box-shadow: var(--box-shadow-card);\n    transition: box-shadow var(--animation-speed-normal) ease;\n\n    /* Card Load-in Animation */\n    animation: fadeInSlideUp 0.6s ease-out forwards;\n}\n.card:hover {\n    box-shadow: 0 0 50px rgba(139, 92, 246, 0.15); /* Subtle purple glow on hover */\n}\n\n/* === FORM ELEMENT STYLING === */\n.form-input {\n    border-radius: var(--border-radius-input);\n    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    color: var(--color-input-text);\n}\n.form-input::placeholder {\n    color: var(--color-label);\n    opacity: 0.7;\n}\n.form-input:focus {\n    /* Glow effect on focus */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);\n    border-color: var(--color-focus-border);\n    outline: none; /* Remove default outline */\n}\n\ntextarea.form-input {\n    min-height: 150px;\n    resize: vertical;\n}\n\n/* Submit Button */\nbutton.submit-btn {\n    transition: all var(--transition-speed) ease-in-out;\n    font-family: var(--font-family);\n    font-weight: var(--font-weight-bold);\n    color: var(--color-submit-btn-text);\n    background-color: var(--color-submit-btn-bg);\n    border-radius: var(--border-radius-input);\n    border: none;\n    cursor: pointer;\n}\nbutton.submit-btn:hover {\n    background-color: var(--color-submit-btn-hover-bg);\n    /* Add a lift and glow effect on hover */\n    transform: translateY(-3px);\n    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);\n}\n\n/* === MODERN CHECKBOX STYLING === */\nlabel.multiselect-label {\n    display: flex;\n    align-items: center;\n    cursor: pointer;\n    position: relative;\n    padding: 8px 0;\n}\nlabel.multiselect-label span {\n    padding-left: 12px;\n    color: var(--color-label);\n    transition: color var(--transition-speed) ease;\n}\nlabel.multiselect-label:hover span {\n    color: var(--color-input-text); /* Lighten label text on hover */\n}\nlabel.multiselect-label input[type=\"checkbox\"] {\n    position: absolute;\n    opacity: 0;\n    cursor: pointer;\n    height: 0;\n    width: 0;\n}\nlabel.multiselect-label span::before {\n    content: '';\n    position: absolute;\n    left: 0;\n    top: 50%;\n    transform: translateY(-50%);\n    width: var(--checkbox-size);\n    height: var(--checkbox-size);\n    background-color: var(--color-input-bg);\n    border: 1px solid var(--color-input-border);\n    border-radius: 6px;\n    transition: all var(--animation-speed-fast) ease-in-out;\n}\nlabel.multiselect-label input[type=\"checkbox\"]:checked + span::before {\n    background-color: var(--color-focus-border);\n    border-color: var(--color-focus-border);\n    background-image: url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e\");\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Animation for the checkmark appearing */\n    transform: translateY(-50%) scale(1.05);\n}\nlabel.multiselect-label input[type=\"checkbox\"]:focus-visible + span::before {\n    /* Use a glow for focus instead of a harsh outline */\n    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);\n}"
+        }
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        912,
+        112
+      ],
+      "id": "9a6d588c-8bd2-4079-aa1c-80cebfc9d9c4",
+      "name": "Respuesta Formulario - Duplicado",
+      "webhookId": "ad7f5b4c-21e0-41e9-911d-892e0e2737dd"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Formulario - Postulacion": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Buscar Duplicado",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge - Puerta No Duplicado",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Drive - Subir CV": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Datos de Drive",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Datos de Drive": {
+      "main": [
+        [
+          {
+            "node": "Combinar Drive y Texto CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Texto del CV": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Texto del CV",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Texto del CV": {
+      "main": [
+        [
+          {
+            "node": "Combinar Drive y Texto CV",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Airtable - Buscar Duplicado": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Chequeo Duplicado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - Es Duplicado": {
+      "main": [
+        [
+          {
+            "node": "Respuesta Formulario - Duplicado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge - Puerta No Duplicado",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respuesta del formulario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anonimizar CV": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Crear Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Crear Candidato": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Buscar Perfil Puesto",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gmail - Confirmar Recepcion al Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Buscar Perfil Puesto": {
+      "main": [
+        [
+          {
+            "node": "IA - Evaluar Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "IA - Evaluar Candidato",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parser - Score Candidato": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "IA - Evaluar Candidato",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail - Solicitar Aprobacion RRHH": {
+      "main": [
+        [
+          {
+            "node": "IF - RRHH Aprobo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - RRHH Aprobo": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Marcar Aprobado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Airtable - Marcar Rechazado por RRHH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Marcar Aprobado": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp - Coordinar Entrevista",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp - Coordinar Entrevista": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Marcar Notificado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Chequeo Duplicado": {
+      "main": [
+        [
+          {
+            "node": "IF - Es Duplicado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combinar Drive y Texto CV": {
+      "main": [
+        [
+          {
+            "node": "Anonimizar CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge - Puerta No Duplicado": {
+      "main": [
+        [
+          {
+            "node": "Drive - Subir CV",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extraer Texto del CV",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IA - Evaluar Candidato": {
+      "main": [
+        [
+          {
+            "node": "Determinar Estado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determinar Estado": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Guardar Resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Guardar Resultado": {
+      "main": [
+        [
+          {
+            "node": "IF - Pasa a Aprobacion RRHH",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail - Informar Duplicado al Candidato": {
+      "main": [
+        []
+      ]
+    },
+    "IF - Pasa a Aprobacion RRHH": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Solicitar Aprobacion RRHH",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail - Informar Rechazo a RRHH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable Tool - Historial Candidato": {
+      "ai_tool": [
+        [
+          {
+            "node": "IA - Evaluar Candidato",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model - Triage": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable Tool - Errores Similares": {
+      "ai_tool": [
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parser - Triage": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IA - Triage de Error": {
+      "main": [
+        [
+          {
+            "node": "Airtable - Log Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Log Error": {
+      "main": [
+        [
+          {
+            "node": "IF - Escalar Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - Escalar Error": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Alertar Error Critico",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Marcar Notificado": {
+      "main": [
+        null,
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail - Informar Rechazo a RRHH": {
+      "main": [
+        null,
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable - Marcar Rechazado por RRHH": {
+      "main": [
+        null,
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail - Confirmar Recepcion al Candidato": {
+      "main": [
+        null,
+        [
+          {
+            "node": "IA - Triage de Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respuesta Formulario - Duplicado": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Informar Duplicado al Candidato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "9edf7aec-c4c5-484c-a461-798b651a63b1",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1e9ec8eff979615b69a3e4030f382f7f3d28dadf0f637f8d38f6ea9e31b61084"
+  },
+  "nodeGroups": [],
+  "id": "vWxDJ8MEN0526c6Q",
+  "tags": []
+}
